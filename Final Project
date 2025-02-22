@@ -1,40 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My HTML Project</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessible Photo Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px;
+        }
+        figure {
+            border: 2px solid #333;
+            padding: 10px;
+            background-color: white;
+            transition: transform 0.3s ease;
+        }
+        figure:hover, figure:focus {
+            transform: scale(1.05);
+            outline: 2px solid blue;
+        }
+        img {
+            max-width: 200px;
+            height: auto;
+        }
+        figcaption {
+            margin-top: 5px;
+            font-size: 14px;
+        }
+    </style>
 </head>
-<body>
-  <header>
-    <h1>Welcome to My HTML Project</h1>
-  </header>
-  <main>
-    <section>
-      <h2>About This Page</h2>
-      <p>This page is a demonstration of my HTML skills.</p>
-    </section>
-    <section>
-      <h2>My Favorite Things</h2>
-      <ul>
-        <li>Learning Web Development</li>
-        <li>Exploring Nature</li>
-        <li>Watching Movies</li>
-      </ul>
-    </section>
-    <section>
-      <h2>Gallery</h2>
-      <img src="image1.jpg" alt="A beautiful sunset">
-      <img src="image2.jpg" alt="A serene forest">
-      <img src="image3.jpg" alt="A city skyline">
-    </section>
-    <section>
-      <h2>Resources</h2>
-      <a href="https://www.w3.org" target="_blank">Learn More About HTML</a>
-    </section>
-  </main>
-  <footer>
-    <p>&copy; 2025 My HTML Project</p>
-  </footer>
+<body onload="initializeGallery()">
+    <h1>Accessible Interactive Photo Gallery</h1>
+    <div class="gallery" id="gallery">
+        <figure><img src="image1.jpg" alt="A scenic mountain view"><figcaption>Mountain</figcaption></figure>
+        <figure><img src="image2.jpg" alt="A beautiful ocean sunset"><figcaption>Ocean Sunset</figcaption></figure>
+        <figure><img src="image3.jpg" alt="A peaceful forest path"><figcaption>Forest Path</figcaption></figure>
+        <figure><img src="image4.jpg" alt="A colorful city skyline at night"><figcaption>City Skyline</figcaption></figure>
+        <figure><img src="image5.jpg" alt="A field of blooming flowers"><figcaption>Flower Field</figcaption></figure>
+        <figure><img src="image6.jpg" alt="A snow-covered landscape"><figcaption>Snowy Landscape</figcaption></figure>
+    </div>
+
+    <script>
+        function initializeGallery() {
+            console.log("Page loaded. Initializing gallery...");
+            let figures = document.querySelectorAll("figure");
+            for (let i = 0; i < figures.length; i++) {
+                figures[i].tabIndex = 0; // Add tabindex for keyboard navigation
+                figures[i].addEventListener("mouseover", handleMouseOver);
+                figures[i].addEventListener("mouseleave", handleMouseLeave);
+                figures[i].addEventListener("focus", handleFocus);
+                figures[i].addEventListener("blur", handleBlur);
+            }
+        }
+
+        function handleMouseOver(event) {
+            console.log("Mouse over: ", event.target);
+            event.target.style.border = "3px solid red";
+        }
+
+        function handleMouseLeave(event) {
+            console.log("Mouse leave: ", event.target);
+            event.target.style.border = "2px solid #333";
+        }
+
+        function handleFocus(event) {
+            console.log("Focus on: ", event.target);
+            event.target.style.outline = "3px solid blue";
+        }
+
+        function handleBlur(event) {
+            console.log("Blur from: ", event.target);
+            event.target.style.outline = "none";
+        }
+    </script>
 </body>
 </html>
